@@ -1130,28 +1130,3 @@
 
 </body>
 </html>
-
-Cómo queda conectado con tu código
-
-Tu "menu.html" ya tiene esta parte:
-
-localStorage.getItem("nombreUsuario");
-localStorage.getItem("rol");
-
-Por eso el login guarda automáticamente:
-
-nombreUsuario = Alejandra
-rol = Vendedora
-
-Después de entrar correctamente, irá a:
-
-menu.html
-
-Y arriba del panel aparecerá:
-
-Alejandra
-Vendedora
-
-Además, el botón de opciones de tu panel seguirá funcionando con "Usuario.html".
-
-«Importante: este login es de demostración del lado del navegador. Las credenciales quedan visibles en el código JavaScript, así que no debe usarse como seguridad real para proteger datos sensibles. Para producción habría que conectarlo a un backend/MySQL con contraseñas protegidas.»
