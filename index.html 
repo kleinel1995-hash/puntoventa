@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Acceso | Productos Naturales</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  >
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <style>
+
+    :root {
+      --green: #2e7d32;
+      --green-dark: #1b5e20;
+      --green-light: #eaf7ea;
+      --orange: #e8892d;
+      --cream: #fffaf0;
+      --white: #ffffff;
+      --text: #263326;
+      --muted: #7b857b;
+      --border: #e4e8e1;
+      --danger: #d93025;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(
+          circle at top left,
+          rgba(112, 168, 82, 0.18),
+          transparent 35%
+        ),
+        radial-gradient(
+          circle at bottom right,
+          rgba(232, 137, 45, 0.15),
+          transparent 35%
+        ),
+        #f5f8f2;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* CONTENEDOR */
+
+    .login-wrapper {
+      width: min(100%, 950px);
+
+      min-height: 610px;
+
+      display: grid;
+
+      grid-template-columns:
+        1fr
+        1fr;
+
+      background: var(--white);
+
+      border-radius: 30px;
+
+      overflow: hidden;
+
+      box-shadow:
+        0 25px 70px
+        rgba(35, 70, 35, 0.14);
+    }
+
+    /* PANEL IZQUIERDO */
+
+    .natural-panel {
+      position: relative;
+
+      overflow: hidden;
+
+      padding: 45px;
+
+      color: white;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(31, 91, 35, 0.97),
+          rgba(66, 132, 58, 0.94)
+        );
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+    }
+
+    .natural-panel::before {
+      content: "";
+
+      position: absolute;
+
+      width: 270px;
+      height: 270px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(255,255,255,0.07);
+
+      top: -90px;
+      right: -80px;
+    }
+
+    .natural-panel::after {
+      content: "";
+
+      position: absolute;
+
+      width: 220px;
+      height: 220px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(255,255,255,0.06);
+
+      bottom: -90px;
+      left: -70px;
+    }
+
+    .natural-content {
+      position: relative;
+
+      z-index: 2;
+    }
+
+    .brand-icon {
+      width: 75px;
+      height: 75px;
+
+      border-radius: 24px;
+
+      background:
+        rgba(255,255,255,0.16);
+
+      border:
+        1px solid
+        rgba(255,255,255,0.25);
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      font-size: 34px;
+
+      margin-bottom: 25px;
+
+      box-shadow:
+        inset 0 0 20px
+        rgba(255,255,255,0.05);
+    }
+
+    .natural-label {
+      display: inline-flex;
+
+      width: fit-content;
+
+      padding: 7px 13px;
+
+      border-radius: 999px;
+
+      background:
+        rgba(255,255,255,0.13);
+
+      color: #eaffdf;
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      letter-spacing: 1px;
+
+      text-transform: uppercase;
+
+      margin-bottom: 17px;
+    }
+
+    .natural-panel h1 {
+      font-size: 38px;
+
+      line-height: 1.12;
+
+      margin-bottom: 16px;
+    }
+
+    .natural-panel h1 span {
+      color: #ffd28e;
+    }
+
+    .natural-panel p {
+      max-width: 430px;
+
+      color:
+        rgba(255,255,255,0.82);
+
+      font-size: 15px;
+
+      line-height: 1.7;
+    }
+
+    .natural-list {
+      margin-top: 28px;
+
+      display: grid;
+
+      gap: 13px;
+    }
+
+    .natural-item {
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      color:
+        rgba(255,255,255,0.92);
+
+      font-size: 14px;
+    }
+
+    .natural-item i {
+      width: 32px;
+      height: 32px;
+
+      border-radius: 10px;
+
+      background:
+        rgba(255,255,255,0.12);
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      color: #ffd28e;
+    }
+
+    /* DECORACIÓN */
+
+    .leaf-decoration {
+      position: absolute;
+
+      right: 35px;
+      bottom: 30px;
+
+      font-size: 110px;
+
+      color:
+        rgba(255,255,255,0.06);
+
+      transform:
+        rotate(-20deg);
+    }
+
+    /* PANEL LOGIN */
+
+    .login-panel {
+      padding: 45px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+    }
+
+    .login-header {
+      margin-bottom: 30px;
+    }
+
+    .login-header h2 {
+      color: var(--text);
+
+      font-size: 29px;
+
+      margin-bottom: 8px;
+    }
+
+    .login-header p {
+      color: var(--muted);
+
+      font-size: 14px;
+
+      line-height: 1.5;
+    }
+
+    /* CAMPOS */
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .field label {
+      display: block;
+
+      color: #394339;
+
+      font-size: 13px;
+
+      font-weight: 700;
+
+      margin-bottom: 8px;
+    }
+
+    .input-box {
+      position: relative;
+    }
+
+    .input-box > i {
+      position: absolute;
+
+      left: 16px;
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      color: var(--green);
+
+      font-size: 17px;
+
+      pointer-events: none;
+    }
+
+    .input-box input {
+      width: 100%;
+
+      height: 55px;
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius: 15px;
+
+      background: #fafcf9;
+
+      color: var(--text);
+
+      outline: none;
+
+      padding:
+        0 48px;
+
+      transition:
+        border .2s,
+        box-shadow .2s,
+        background .2s;
+    }
+
+    .input-box input:focus {
+      border-color:
+        var(--green);
+
+      background: white;
+
+      box-shadow:
+        0 0 0 4px
+        rgba(46,125,50,0.10);
+    }
+
+    .toggle-password {
+      position: absolute;
+
+      right: 8px;
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      width: 40px;
+      height: 40px;
+
+      border: none;
+
+      border-radius: 10px;
+
+      background: transparent;
+
+      color: #8b958b;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+    }
+
+    .toggle-password:hover {
+      background: var(--green-light);
+
+      color: var(--green);
+    }
+
+    /* RECORDAR */
+
+    .login-options {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 10px;
+
+      margin: 3px 0 22px;
+    }
+
+    .remember {
+      display: flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+    }
+
+    .remember input {
+      accent-color:
+        var(--green);
+    }
+
+    /* BOTÓN */
+
+    .login-button {
+      width: 100%;
+
+      height: 56px;
+
+      border: none;
+
+      border-radius: 16px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--green),
+          var(--green-dark)
+        );
+
+      color: white;
+
+      font-size: 16px;
+
+      font-weight: 800;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 10px;
+
+      box-shadow:
+        0 10px 25px
+        rgba(46,125,50,0.24);
+
+      transition:
+        transform .2s,
+        box-shadow .2s;
+    }
+
+    .login-button:hover {
+      transform:
+        translateY(-2px);
+
+      box-shadow:
+        0 14px 30px
+        rgba(46,125,50,0.28);
+    }
+
+    .login-button:active {
+      transform:
+        scale(.98);
+    }
+
+    /* INFO */
+
+    .secure-login {
+      margin-top: 20px;
+
+      padding: 12px 14px;
+
+      border-radius: 13px;
+
+      background:
+        var(--green-light);
+
+      color:
+        var(--green-dark);
+
+      font-size: 12px;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+      line-height: 1.4;
+    }
+
+    .footer-login {
+      margin-top: 27px;
+
+      text-align: center;
+
+      color: #9aa19a;
+
+      font-size: 11px;
+    }
+
+    /* ERROR */
+
+    .error-message {
+      display: none;
+
+      margin-top: -5px;
+      margin-bottom: 15px;
+
+      padding: 10px 12px;
+
+      border-radius: 10px;
+
+      background: #fff0ef;
+
+      color: var(--danger);
+
+      font-size: 12px;
+
+      line-height: 1.4;
+    }
+
+    /* MÓVIL */
+
+    @media (max-width: 760px) {
+
+      body {
+        padding: 12px;
+      }
+
+      .login-wrapper {
+        min-height: auto;
+
+        grid-template-columns: 1fr;
+
+        border-radius: 24px;
+      }
+
+      .natural-panel {
+        min-height: 275px;
+
+        padding: 30px 25px;
+
+        justify-content: center;
+      }
+
+      .brand-icon {
+        width: 58px;
+        height: 58px;
+
+        border-radius: 18px;
+
+        font-size: 27px;
+
+        margin-bottom: 17px;
+      }
+
+      .natural-label {
+        margin-bottom: 10px;
+      }
+
+      .natural-panel h1 {
+        font-size: 28px;
+
+        margin-bottom: 10px;
+      }
+
+      .natural-panel p {
+        font-size: 13px;
+
+        line-height: 1.5;
+      }
+
+      .natural-list {
+        display: none;
+      }
+
+      .leaf-decoration {
+        font-size: 90px;
+
+        right: 10px;
+        bottom: -5px;
+      }
+
+      .login-panel {
+        padding: 30px 22px 25px;
+      }
+
+      .login-header {
+        margin-bottom: 24px;
+      }
+
+      .login-header h2 {
+        font-size: 25px;
+      }
+    }
+
+    @media (max-width: 390px) {
+
+      .natural-panel {
+        min-height: 245px;
+
+        padding: 25px 20px;
+      }
+
+      .natural-panel h1 {
+        font-size: 25px;
+      }
+
+      .login-panel {
+        padding:
+          25px 18px 22px;
+      }
+
+      .login-options {
+        align-items: flex-start;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="login-wrapper">
+
+    <!-- PANEL NATURAL -->
+
+    <section class="natural-panel">
+
+      <div class="natural-content">
+
+        <div class="brand-icon">
+          <i class="fa-solid fa-leaf"></i>
+        </div>
+
+        <div class="natural-label">
+          Productos naturales
+        </div>
+
+        <h1>
+          Bienvenida a tu
+          <span>espacio natural.</span>
+        </h1>
+
+        <p>
+          Administra tus clientes, pedidos,
+          productos y ventas desde un solo lugar.
+        </p>
+
+        <div class="natural-list">
+
+          <div class="natural-item">
+            <i class="fa-solid fa-seedling"></i>
+            <span>
+              Productos naturales y saludables
+            </span>
+          </div>
+
+          <div class="natural-item">
+            <i class="fa-solid fa-basket-shopping"></i>
+            <span>
+              Control de pedidos y ventas
+            </span>
+          </div>
+
+          <div class="natural-item">
+            <i class="fa-solid fa-users"></i>
+            <span>
+              Administración de clientes
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="leaf-decoration">
+        <i class="fa-solid fa-leaf"></i>
+      </div>
+
+    </section>
+
+
+    <!-- LOGIN -->
+
+    <section class="login-panel">
+
+      <div class="login-header">
+
+        <h2>
+          Iniciar sesión
+        </h2>
+
+        <p>
+          Ingresa tus datos para acceder
+          al panel de ventas.
+        </p>
+
+      </div>
+
+
+      <form
+        id="loginForm"
+        autocomplete="off"
+      >
+
+        <div class="field">
+
+          <label for="usuario">
+            Usuario
+          </label>
+
+          <div class="input-box">
+
+            <i class="fa-solid fa-user"></i>
+
+            <input
+              type="text"
+              id="usuario"
+              name="usuario"
+              placeholder="Escribe tu usuario"
+              autocomplete="username"
+              required
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="password">
+            Contraseña
+          </label>
+
+          <div class="input-box">
+
+            <i class="fa-solid fa-lock"></i>
+
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Escribe tu contraseña"
+              autocomplete="current-password"
+              required
+            >
+
+            <button
+              type="button"
+              class="toggle-password"
+              id="togglePassword"
+              aria-label="Mostrar contraseña"
+            >
+              <i
+                class="fa-solid fa-eye"
+                id="eyeIcon"
+              ></i>
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="error-message"
+          id="errorMessage"
+        >
+          Usuario o contraseña incorrectos.
+        </div>
+
+
+        <div class="login-options">
+
+          <label class="remember">
+
+            <input
+              type="checkbox"
+              id="recordar"
+            >
+
+            Recordar usuario
+
+          </label>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="login-button"
+        >
+
+          <i class="fa-solid fa-right-to-bracket"></i>
+
+          Entrar al panel
+
+        </button>
+
+
+        <div class="secure-login">
+
+          <i class="fa-solid fa-shield-halved"></i>
+
+          <span>
+            Acceso protegido para la administración
+            de tu negocio.
+          </span>
+
+        </div>
+
+      </form>
+
+
+      <div class="footer-login">
+
+        Panel de ventas · Productos Naturales
+
+      </div>
+
+    </section>
+
+  </div>
+
+
+  <script>
+
+    /*
+      CREDENCIALES
+    */
+
+    const USUARIO_CORRECTO = "alejandra";
+
+    const PASSWORD_CORRECTA = "Alejandra";
+
+
+    /*
+      ELEMENTOS
+    */
+
+    const loginForm =
+      document.getElementById(
+        "loginForm"
+      );
+
+    const usuarioInput =
+      document.getElementById(
+        "usuario"
+      );
+
+    const passwordInput =
+      document.getElementById(
+        "password"
+      );
+
+    const errorMessage =
+      document.getElementById(
+        "errorMessage"
+      );
+
+    const recordar =
+      document.getElementById(
+        "recordar"
+      );
+
+    const togglePassword =
+      document.getElementById(
+        "togglePassword"
+      );
+
+    const eyeIcon =
+      document.getElementById(
+        "eyeIcon"
+      );
+
+
+    /*
+      RECORDAR USUARIO
+    */
+
+    const usuarioGuardado =
+      localStorage.getItem(
+        "usuarioRecordado"
+      );
+
+    if (usuarioGuardado) {
+
+      usuarioInput.value =
+        usuarioGuardado;
+
+      recordar.checked =
+        true;
+
+    }
+
+
+    /*
+      MOSTRAR / OCULTAR CONTRASEÑA
+    */
+
+    togglePassword.addEventListener(
+      "click",
+      () => {
+
+        const mostrando =
+          passwordInput.type ===
+          "text";
+
+        passwordInput.type =
+          mostrando
+            ? "password"
+            : "text";
+
+        eyeIcon.className =
+          mostrando
+            ? "fa-solid fa-eye"
+            : "fa-solid fa-eye-slash";
+
+      }
+    );
+
+
+    /*
+      LOGIN
+    */
+
+    loginForm.addEventListener(
+      "submit",
+      function(event) {
+
+        event.preventDefault();
+
+
+        const usuario =
+          usuarioInput.value
+            .trim()
+            .toLowerCase();
+
+        const password =
+          passwordInput.value;
+
+
+        errorMessage.style.display =
+          "none";
+
+
+        if (
+          usuario ===
+            USUARIO_CORRECTO &&
+          password ===
+            PASSWORD_CORRECTA
+        ) {
+
+
+          /*
+            GUARDAR SESIÓN
+
+            Tu menu.html actual utiliza
+            estas claves.
+          */
+
+          localStorage.setItem(
+            "nombreUsuario",
+            "Alejandra"
+          );
+
+          localStorage.setItem(
+            "rol",
+            "Vendedora"
+          );
+
+          localStorage.setItem(
+            "usuarioSesion",
+            JSON.stringify({
+              nombre: "Alejandra",
+              usuario: "alejandra",
+              rol: "Vendedora"
+            })
+          );
+
+
+          /*
+            RECORDAR USUARIO
+          */
+
+          if (recordar.checked) {
+
+            localStorage.setItem(
+              "usuarioRecordado",
+              "alejandra"
+            );
+
+          } else {
+
+            localStorage.removeItem(
+              "usuarioRecordado"
+            );
+
+          }
+
+
+          /*
+            MENSAJE DE ÉXITO
+          */
+
+          Swal.fire({
+
+            icon: "success",
+
+            title:
+              "¡Bienvenida, Alejandra!",
+
+            text:
+              "Acceso correcto al panel de ventas.",
+
+            confirmButtonColor:
+              "#2e7d32",
+
+            confirmButtonText:
+              "Entrar"
+
+          }).then(() => {
+
+            window.location.href =
+              "menu.html";
+
+          });
+
+        } else {
+
+
+          /*
+            ERROR
+          */
+
+          errorMessage.style.display =
+            "block";
+
+          passwordInput.value = "";
+
+          passwordInput.focus();
+
+
+          Swal.fire({
+
+            icon: "error",
+
+            title:
+              "Datos incorrectos",
+
+            text:
+              "Verifica tu usuario y contraseña.",
+
+            confirmButtonColor:
+              "#2e7d32",
+
+            confirmButtonText:
+              "Intentar nuevamente"
+
+          });
+
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
+
+Cómo queda conectado con tu código
+
+Tu "menu.html" ya tiene esta parte:
+
+localStorage.getItem("nombreUsuario");
+localStorage.getItem("rol");
+
+Por eso el login guarda automáticamente:
+
+nombreUsuario = Alejandra
+rol = Vendedora
+
+Después de entrar correctamente, irá a:
+
+menu.html
+
+Y arriba del panel aparecerá:
+
+Alejandra
+Vendedora
+
+Además, el botón de opciones de tu panel seguirá funcionando con "Usuario.html".
+
+«Importante: este login es de demostración del lado del navegador. Las credenciales quedan visibles en el código JavaScript, así que no debe usarse como seguridad real para proteger datos sensibles. Para producción habría que conectarlo a un backend/MySQL con contraseñas protegidas.»
