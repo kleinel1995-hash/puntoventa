@@ -1,12 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080808">
 
   <title>Registrar Cliente</title>
 
@@ -29,11 +26,8 @@
       --muted: #737985;
       --line: #e7e8eb;
       --green: #159638;
-      --green-light: #eaf8e9;
       --blue: #087be7;
       --blue-light: #e4f3ff;
-      --red: #e52424;
-      --red-light: #ffeaea;
       --gray-light: #f3f4f6;
     }
 
@@ -257,6 +251,7 @@
     .step-title-icon {
       width: 43px;
       height: 43px;
+      flex-shrink: 0;
       border-radius: 14px;
       background: var(--orange-light);
       color: var(--orange);
@@ -349,7 +344,7 @@
       color: #a0a5ad;
     }
 
-    /* CÉDULA OPCIONAL */
+    /* CÉDULA Y OPCIONES SÍ / NO */
 
     .cedula-card {
       padding: 14px;
@@ -359,7 +354,6 @@
     }
 
     .cedula-question {
-      margin-bottom: 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -368,6 +362,7 @@
 
     .cedula-question-text {
       min-width: 0;
+      flex: 1;
     }
 
     .cedula-question-text strong {
@@ -375,11 +370,13 @@
       margin-bottom: 4px;
       color: #111;
       font-size: 13px;
+      line-height: 1.4;
     }
 
     .cedula-question-text span {
       color: var(--muted);
       font-size: 11px;
+      line-height: 1.4;
     }
 
     .cedula-options {
@@ -408,7 +405,7 @@
 
     .cedula-field {
       display: none;
-      margin-top: 4px;
+      margin-top: 12px;
     }
 
     .cedula-field.show {
@@ -416,12 +413,18 @@
       animation: fadeIn 0.2s ease;
     }
 
-    /* ARCHIVOS */
+    /* FOTOS: OCULTAS CUANDO LA CÉDULA ES NO */
 
     .document-grid {
-      display: grid;
+      display: none;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
+      margin-top: 14px;
+    }
+
+    .document-grid.show {
+      display: grid;
+      animation: fadeIn 0.2s ease;
     }
 
     .file-box {
@@ -441,6 +444,7 @@
     }
 
     .file-box-content {
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -504,6 +508,7 @@
     .location-icon {
       width: 44px;
       height: 44px;
+      flex-shrink: 0;
       border-radius: 14px;
       background: #fff;
       color: var(--blue);
@@ -525,6 +530,20 @@
       font-size: 11px;
     }
 
+    .gps-question-card {
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .gps-field {
+      display: none;
+      margin-top: 14px;
+    }
+
+    .gps-field.show {
+      display: block;
+      animation: fadeIn 0.2s ease;
+    }
+
     .btn-gps {
       width: 100%;
       min-height: 50px;
@@ -543,7 +562,12 @@
       box-shadow: 0 5px 15px rgba(8, 123, 231, 0.22);
     }
 
-    /* BOTONES */
+    .btn-gps:disabled {
+      opacity: 0.65;
+      cursor: wait;
+    }
+
+    /* BOTONES DE NAVEGACIÓN */
 
     .nav-buttons {
       margin-top: 22px;
@@ -652,8 +676,12 @@
         font-size: 16px;
       }
 
-      .two-columns,
-      .document-grid {
+      .two-columns {
+        grid-template-columns: 1fr;
+      }
+
+      .document-grid,
+      .document-grid.show {
         grid-template-columns: 1fr;
       }
 
@@ -679,13 +707,15 @@
 
 <body>
 
+  <!-- ENCABEZADO -->
+
   <header class="header">
 
     <button
       type="button"
       class="header-button"
       onclick="window.location.href='Clientes.html'"
-      aria-label="Volver"
+      aria-label="Volver a clientes"
     >
       <i class="fa-solid fa-arrow-left"></i>
     </button>
@@ -707,63 +737,44 @@
 
   </header>
 
+  <!-- CONTENIDO -->
+
   <main class="container">
 
     <div class="page-heading">
-
       <h1>Nuevo cliente</h1>
 
       <p>
         Completa los datos personales, la información del negocio y su ubicación.
       </p>
-
     </div>
 
     <section class="form-card">
 
+      <!-- INDICADORES DE LOS PASOS -->
+
       <div class="step-container">
 
         <div class="step-item active">
-
-          <div class="step active">
-            1
-          </div>
-
-          <span class="step-label">
-            Personal
-          </span>
-
+          <div class="step active">1</div>
+          <span class="step-label">Personal</span>
         </div>
 
         <div class="step-item">
-
-          <div class="step">
-            2
-          </div>
-
-          <span class="step-label">
-            Negocio
-          </span>
-
+          <div class="step">2</div>
+          <span class="step-label">Negocio</span>
         </div>
 
         <div class="step-item">
-
-          <div class="step">
-            3
-          </div>
-
-          <span class="step-label">
-            Ubicación
-          </span>
-
+          <div class="step">3</div>
+          <span class="step-label">Ubicación</span>
         </div>
 
       </div>
 
       <div id="form-steps">
 
-        <!-- PASO 1 -->
+        <!-- PASO 1: DATOS PERSONALES -->
 
         <div class="form-step active">
 
@@ -775,10 +786,7 @@
 
             <div>
               <strong>Datos personales</strong>
-
-              <span>
-                Información básica del cliente
-              </span>
+              <span>Información básica del cliente</span>
             </div>
 
           </div>
@@ -788,13 +796,9 @@
             <div class="two-columns">
 
               <div class="field-group">
-
-                <label for="nombre">
-                  Nombre
-                </label>
+                <label for="nombre">Nombre</label>
 
                 <div class="input-wrapper">
-
                   <i class="fa-solid fa-user"></i>
 
                   <input
@@ -803,19 +807,13 @@
                     placeholder="Nombre"
                     autocomplete="off"
                   >
-
                 </div>
-
               </div>
 
               <div class="field-group">
-
-                <label for="apellido">
-                  Apellido
-                </label>
+                <label for="apellido">Apellido</label>
 
                 <div class="input-wrapper">
-
                   <i class="fa-solid fa-user"></i>
 
                   <input
@@ -824,27 +822,23 @@
                     placeholder="Apellido"
                     autocomplete="off"
                   >
-
                 </div>
-
               </div>
 
             </div>
+
+            <!-- PREGUNTA DE LA CÉDULA -->
 
             <div class="cedula-card">
 
               <div class="cedula-question">
 
                 <div class="cedula-question-text">
-
-                  <strong>
-                    ¿Deseas ingresar la cédula?
-                  </strong>
+                  <strong>¿Deseas ingresar la cédula?</strong>
 
                   <span>
-                    Este dato es opcional
+                    Si eliges No, se ocultan la cédula y las fotografías.
                   </span>
-
                 </div>
 
                 <div class="cedula-options">
@@ -871,13 +865,11 @@
 
               </div>
 
-              <div
-                class="cedula-field"
-                id="cedulaField"
-              >
+              <!-- CAMPO DE CÉDULA -->
+
+              <div class="cedula-field" id="cedulaField">
 
                 <div class="input-wrapper">
-
                   <i class="fa-solid fa-id-card"></i>
 
                   <input
@@ -887,70 +879,49 @@
                     inputmode="numeric"
                     autocomplete="off"
                   >
-
                 </div>
 
               </div>
 
-            </div>
+              <!-- FOTOS FRONTAL Y TRASERA -->
 
-            <div class="document-grid">
+              <div class="document-grid" id="documentGrid">
 
-              <label class="file-box">
+                <label class="file-box">
 
-                <input
-                  type="file"
-                  id="fotoFrontal"
-                  accept="image/*"
-                  onchange="mostrarVistaDocumento(event, 'previewFrontal')"
-                >
+                  <input
+                    type="file"
+                    id="fotoFrontal"
+                    accept="image/*"
+                    onchange="mostrarVistaDocumento(event, 'previewFrontal')"
+                  >
 
-                <div
-                  class="file-box-content"
-                  id="previewFrontal"
-                >
+                  <div class="file-box-content" id="previewFrontal">
+                    <i class="fa-solid fa-camera"></i>
+                    <strong>Foto frontal</strong>
+                    <span>Opcional</span>
+                  </div>
 
-                  <i class="fa-solid fa-camera"></i>
+                </label>
 
-                  <strong>
-                    Foto frontal
-                  </strong>
+                <label class="file-box">
 
-                  <span>
-                    Opcional
-                  </span>
+                  <input
+                    type="file"
+                    id="fotoTrasera"
+                    accept="image/*"
+                    onchange="mostrarVistaDocumento(event, 'previewTrasera')"
+                  >
 
-                </div>
+                  <div class="file-box-content" id="previewTrasera">
+                    <i class="fa-solid fa-camera-rotate"></i>
+                    <strong>Foto trasera</strong>
+                    <span>Opcional</span>
+                  </div>
 
-              </label>
+                </label>
 
-              <label class="file-box">
-
-                <input
-                  type="file"
-                  id="fotoTrasera"
-                  accept="image/*"
-                  onchange="mostrarVistaDocumento(event, 'previewTrasera')"
-                >
-
-                <div
-                  class="file-box-content"
-                  id="previewTrasera"
-                >
-
-                  <i class="fa-solid fa-camera-rotate"></i>
-
-                  <strong>
-                    Foto trasera
-                  </strong>
-
-                  <span>
-                    Opcional
-                  </span>
-
-                </div>
-
-              </label>
+              </div>
 
             </div>
 
@@ -958,7 +929,7 @@
 
         </div>
 
-        <!-- PASO 2 -->
+        <!-- PASO 2: CONTACTO Y NEGOCIO -->
 
         <div class="form-step">
 
@@ -970,10 +941,7 @@
 
             <div>
               <strong>Contacto y negocio</strong>
-
-              <span>
-                Información comercial del cliente
-              </span>
+              <span>Información comercial del cliente</span>
             </div>
 
           </div>
@@ -981,13 +949,9 @@
           <div class="fields-grid">
 
             <div class="field-group">
-
-              <label for="telefono">
-                Teléfono
-              </label>
+              <label for="telefono">Teléfono</label>
 
               <div class="input-wrapper">
-
                 <i class="fa-solid fa-phone"></i>
 
                 <input
@@ -998,19 +962,13 @@
                   maxlength="10"
                   autocomplete="off"
                 >
-
               </div>
-
             </div>
 
             <div class="field-group">
-
-              <label for="direccion">
-                Dirección
-              </label>
+              <label for="direccion">Dirección</label>
 
               <div class="input-wrapper">
-
                 <i class="fa-solid fa-location-dot"></i>
 
                 <input
@@ -1019,19 +977,13 @@
                   placeholder="Dirección del cliente"
                   autocomplete="off"
                 >
-
               </div>
-
             </div>
 
             <div class="field-group">
-
-              <label for="negocio">
-                Nombre del negocio
-              </label>
+              <label for="negocio">Nombre del negocio</label>
 
               <div class="input-wrapper">
-
                 <i class="fa-solid fa-store"></i>
 
                 <input
@@ -1040,19 +992,13 @@
                   placeholder="Nombre del negocio"
                   autocomplete="off"
                 >
-
               </div>
-
             </div>
 
             <div class="field-group">
-
-              <label for="ruta">
-                Ruta
-              </label>
+              <label for="ruta">Ruta</label>
 
               <div class="input-wrapper">
-
                 <i class="fa-solid fa-route"></i>
 
                 <input
@@ -1061,16 +1007,14 @@
                   placeholder="Ruta asignada"
                   autocomplete="off"
                 >
-
               </div>
-
             </div>
 
           </div>
 
         </div>
 
-        <!-- PASO 3 -->
+        <!-- PASO 3: UBICACIÓN Y GPS -->
 
         <div class="form-step">
 
@@ -1082,10 +1026,7 @@
 
             <div>
               <strong>Ubicación</strong>
-
-              <span>
-                Coordenadas para mostrar el cliente en el mapa
-              </span>
+              <span>Configura la ubicación del cliente</span>
             </div>
 
           </div>
@@ -1099,44 +1040,86 @@
               </div>
 
               <div>
-                <strong>
-                  Ubicación del cliente
-                </strong>
-
-                <span>
-                  Puedes escribirla o usar el GPS
-                </span>
+                <strong>Ubicación del cliente</strong>
+                <span>Elige si deseas utilizar el GPS</span>
               </div>
 
             </div>
 
-            <div class="input-wrapper">
+            <!-- PREGUNTA GPS SÍ / NO -->
 
-              <i class="fa-solid fa-map-pin"></i>
+            <div class="cedula-card gps-question-card">
 
-              <input
-                type="text"
-                id="ubicacion"
-                placeholder="Ejemplo: 18.500000,-70.300000"
-                autocomplete="off"
-              >
+              <div class="cedula-question">
+
+                <div class="cedula-question-text">
+                  <strong>¿Se va a utilizar el GPS del cliente?</strong>
+
+                  <span>
+                    Si eliges No, podrás guardar sin coordenadas.
+                  </span>
+                </div>
+
+                <div class="cedula-options">
+
+                  <button
+                    type="button"
+                    class="cedula-option"
+                    id="gpsSi"
+                    onclick="seleccionarGPS(true)"
+                  >
+                    Sí
+                  </button>
+
+                  <button
+                    type="button"
+                    class="cedula-option active"
+                    id="gpsNo"
+                    onclick="seleccionarGPS(false)"
+                  >
+                    No
+                  </button>
+
+                </div>
+
+              </div>
 
             </div>
 
-            <button
-              type="button"
-              class="btn-gps"
-              onclick="obtenerUbicacion()"
-            >
-              <i class="fa-solid fa-location-crosshairs"></i>
-              Usar mi ubicación actual
-            </button>
+            <!-- CAMPO GPS: OCULTO POR DEFECTO -->
+
+            <div class="gps-field" id="gpsField">
+
+              <div class="input-wrapper">
+                <i class="fa-solid fa-map-pin"></i>
+
+                <input
+                  type="text"
+                  id="ubicacion"
+                  placeholder="Ejemplo: 18.500000,-70.300000"
+                  autocomplete="off"
+                >
+              </div>
+
+              <button
+                type="button"
+                class="btn-gps"
+                id="btnGps"
+                onclick="obtenerUbicacion()"
+              >
+                <i class="fa-solid fa-location-crosshairs"></i>
+                Usar mi ubicación actual
+              </button>
+
+            </div>
 
           </div>
 
         </div>
 
       </div>
+
+      <!-- BOTONES ATRÁS Y SIGUIENTE -->
 
       <div class="nav-buttons">
 
@@ -1168,204 +1151,184 @@
   </main>
 
   <script>
-    const pasos =
-      document.querySelectorAll(
-        ".form-step"
-      );
+    /* VARIABLES PRINCIPALES */
 
-    const circulos =
-      document.querySelectorAll(
-        ".step"
-      );
+    const pasos = document.querySelectorAll(".form-step");
+    const circulos = document.querySelectorAll(".step");
+    const stepItems = document.querySelectorAll(".step-item");
 
-    const stepItems =
-      document.querySelectorAll(
-        ".step-item"
-      );
-
-    const btnPrev =
-      document.getElementById(
-        "btn-prev"
-      );
-
-    const btnNext =
-      document.getElementById(
-        "btn-next"
-      );
+    const btnPrev = document.getElementById("btn-prev");
+    const btnNext = document.getElementById("btn-next");
 
     let pasoActual = 0;
     let ingresarCedula = false;
+    let utilizarGPS = false;
+
+    /* ALERTAS */
+
+    function mostrarAlerta(mensaje, icono = "info") {
+      Swal.fire({
+        position: "center",
+        icon: icono,
+        title: mensaje,
+        confirmButtonColor: "#f26a21"
+      });
+    }
+
+    /* CÉDULA: SÍ / NO */
 
     function seleccionarCedula(valor) {
       ingresarCedula = valor;
 
-      const botonSi =
-        document.getElementById(
-          "cedulaSi"
-        );
+      const botonSi = document.getElementById("cedulaSi");
+      const botonNo = document.getElementById("cedulaNo");
+      const campo = document.getElementById("cedulaField");
+      const cedula = document.getElementById("cedula");
+      const fotos = document.getElementById("documentGrid");
 
-      const botonNo =
-        document.getElementById(
-          "cedulaNo"
-        );
+      botonSi.classList.toggle("active", valor);
+      botonNo.classList.toggle("active", !valor);
 
-      const campo =
-        document.getElementById(
-          "cedulaField"
-        );
-
-      const cedula =
-        document.getElementById(
-          "cedula"
-        );
-
-      botonSi.classList.toggle(
-        "active",
-        valor
-      );
-
-      botonNo.classList.toggle(
-        "active",
-        !valor
-      );
-
-      campo.classList.toggle(
-        "show",
-        valor
-      );
+      campo.classList.toggle("show", valor);
+      fotos.classList.toggle("show", valor);
 
       if (!valor) {
+        // Borrar la cédula cuando se selecciona No.
         cedula.value = "";
+
+        // Borrar las fotografías seleccionadas.
+        document.getElementById("fotoFrontal").value = "";
+        document.getElementById("fotoTrasera").value = "";
+
+        const previewFrontal =
+          document.getElementById("previewFrontal");
+
+        const previewTrasera =
+          document.getElementById("previewTrasera");
+
+        previewFrontal.innerHTML = `
+          <i class="fa-solid fa-camera"></i>
+          <strong>Foto frontal</strong>
+          <span>Opcional</span>
+        `;
+
+        previewTrasera.innerHTML = `
+          <i class="fa-solid fa-camera-rotate"></i>
+          <strong>Foto trasera</strong>
+          <span>Opcional</span>
+        `;
+
+        delete previewFrontal.dataset.image;
+        delete previewTrasera.dataset.image;
+
       } else {
-        setTimeout(
-          () => cedula.focus(),
-          100
-        );
+        setTimeout(() => cedula.focus(), 100);
       }
     }
+
+    /* GPS: SÍ / NO */
+
+    function seleccionarGPS(valor) {
+      utilizarGPS = valor;
+
+      const botonSi = document.getElementById("gpsSi");
+      const botonNo = document.getElementById("gpsNo");
+      const campo = document.getElementById("gpsField");
+      const ubicacion = document.getElementById("ubicacion");
+
+      botonSi.classList.toggle("active", valor);
+      botonNo.classList.toggle("active", !valor);
+
+      campo.classList.toggle("show", valor);
+
+      if (!valor) {
+        // No conservar coordenadas si se desactiva el GPS.
+        ubicacion.value = "";
+      }
+    }
+
+    /* NAVEGACIÓN ENTRE PASOS */
 
     function cambiarPaso(dir) {
-      if (
-        dir === 1 &&
-        !validarPasoActual()
-      ) {
+      if (dir === 1 && !validarPasoActual()) {
         return;
       }
 
-      const nuevoPaso =
-        pasoActual + dir;
+      const nuevoPaso = pasoActual + dir;
 
-      if (
-        nuevoPaso < 0 ||
-        nuevoPaso >= pasos.length
-      ) {
+      if (nuevoPaso < 0 || nuevoPaso >= pasos.length) {
         return;
       }
 
-      pasos[
-        pasoActual
-      ].classList.remove(
-        "active"
-      );
+      pasos[pasoActual].classList.remove("active");
 
-      pasoActual =
-        nuevoPaso;
+      pasoActual = nuevoPaso;
 
-      pasos[
-        pasoActual
-      ].classList.add(
-        "active"
-      );
+      pasos[pasoActual].classList.add("active");
 
       actualizarIndicadores();
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     }
 
+    /* ACTUALIZAR INDICADORES */
+
     function actualizarIndicadores() {
-      circulos.forEach(
-        (circulo, index) => {
-          circulo.classList.remove(
-            "active",
-            "completed"
-          );
+      circulos.forEach((circulo, index) => {
+        circulo.classList.remove("active", "completed");
+        stepItems[index].classList.remove("active");
 
-          stepItems[
-            index
-          ].classList.remove(
-            "active"
-          );
-
-          if (index < pasoActual) {
-            circulo.classList.add(
-              "completed"
-            );
-
-            circulo.innerHTML =
-              '<i class="fa-solid fa-check"></i>';
-          } else {
-            circulo.textContent =
-              index + 1;
-          }
-
-          if (index === pasoActual) {
-            circulo.classList.add(
-              "active"
-            );
-
-            stepItems[
-              index
-            ].classList.add(
-              "active"
-            );
-          }
+        if (index < pasoActual) {
+          circulo.classList.add("completed");
+          circulo.innerHTML =
+            '<i class="fa-solid fa-check"></i>';
+        } else {
+          circulo.textContent = index + 1;
         }
-      );
 
-      btnPrev.disabled =
-        pasoActual === 0;
+        if (index === pasoActual) {
+          circulo.classList.add("active");
+          stepItems[index].classList.add("active");
+        }
+      });
 
-      if (
-        pasoActual ===
-        pasos.length - 1
-      ) {
+      btnPrev.disabled = pasoActual === 0;
+
+      if (pasoActual === pasos.length - 1) {
         btnNext.innerHTML = `
           <i class="fa-solid fa-floppy-disk"></i>
           Guardar
         `;
 
-        btnNext.onclick =
-          guardarCliente;
+        btnNext.onclick = guardarCliente;
+
       } else {
         btnNext.innerHTML = `
           Siguiente
           <i class="fa-solid fa-arrow-right"></i>
         `;
 
-        btnNext.onclick =
-          () => cambiarPaso(1);
+        btnNext.onclick = () => cambiarPaso(1);
       }
     }
+
+    /* VALIDAR CADA PASO */
 
     function validarPasoActual() {
       if (pasoActual === 0) {
         const nombre =
-          document.getElementById(
-            "nombre"
-          ).value.trim();
+          document.getElementById("nombre").value.trim();
 
         const apellido =
-          document.getElementById(
-            "apellido"
-          ).value.trim();
+          document.getElementById("apellido").value.trim();
 
         const cedula =
-          document.getElementById(
-            "cedula"
-          ).value.trim();
+          document.getElementById("cedula").value.trim();
 
-        if (
-          !nombre ||
-          !apellido
-        ) {
+        if (!nombre || !apellido) {
           mostrarAlerta(
             "Completa el nombre y el apellido.",
             "warning"
@@ -1374,12 +1337,18 @@
           return false;
         }
 
-        if (
-          ingresarCedula &&
-          !cedula
-        ) {
+        if (ingresarCedula && !cedula) {
           mostrarAlerta(
             "Introduce la cédula o selecciona No.",
+            "warning"
+          );
+
+          return false;
+        }
+
+        if (ingresarCedula && !/^\d{11}$/.test(cedula)) {
+          mostrarAlerta(
+            "La cédula dominicana debe tener 11 dígitos.",
             "warning"
           );
 
@@ -1389,31 +1358,18 @@
 
       if (pasoActual === 1) {
         const telefono =
-          document.getElementById(
-            "telefono"
-          ).value.trim();
+          document.getElementById("telefono").value.trim();
 
         const direccion =
-          document.getElementById(
-            "direccion"
-          ).value.trim();
+          document.getElementById("direccion").value.trim();
 
         const negocio =
-          document.getElementById(
-            "negocio"
-          ).value.trim();
+          document.getElementById("negocio").value.trim();
 
         const ruta =
-          document.getElementById(
-            "ruta"
-          ).value.trim();
+          document.getElementById("ruta").value.trim();
 
-        if (
-          !telefono ||
-          !direccion ||
-          !negocio ||
-          !ruta
-        ) {
+        if (!telefono || !direccion || !negocio || !ruta) {
           mostrarAlerta(
             "Completa todos los datos del negocio.",
             "warning"
@@ -1422,11 +1378,7 @@
           return false;
         }
 
-        if (
-          !/^(809|829|849)\d{7}$/.test(
-            telefono
-          )
-        ) {
+        if (!/^(809|829|849)\d{7}$/.test(telefono)) {
           mostrarAlerta(
             "El teléfono debe tener 10 números y comenzar con 809, 829 o 849.",
             "warning"
@@ -1439,76 +1391,79 @@
       return true;
     }
 
-    function mostrarAlerta(
-      mensaje,
-      icono = "info"
-    ) {
-      Swal.fire({
-        position: "center",
-        icon: icono,
-        title: mensaje,
-        confirmButtonColor: "#f26a21"
-      });
-    }
+    /* VISTA PREVIA DE FOTOGRAFÍAS */
 
-    function mostrarVistaDocumento(
-      event,
-      previewId
-    ) {
-      const file =
-        event.target.files[0];
-
-      const preview =
-        document.getElementById(
-          previewId
-        );
+    function mostrarVistaDocumento(event, previewId) {
+      const file = event.target.files[0];
+      const preview = document.getElementById(previewId);
 
       if (!file) {
         return;
       }
 
-      if (
-        !file.type.startsWith(
-          "image/"
-        )
-      ) {
+      if (!file.type.startsWith("image/")) {
         mostrarAlerta(
           "Selecciona una imagen válida.",
           "warning"
         );
 
         event.target.value = "";
+        return;
+      }
+
+      // Limitar el tamaño de cada fotografía a 4 MB.
+      if (file.size > 4 * 1024 * 1024) {
+        mostrarAlerta(
+          "La fotografía no debe superar los 4 MB.",
+          "warning"
+        );
+
+        event.target.value = "";
+        return;
+      }
+
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        preview.innerHTML = `
+          <img
+            src="${reader.result}"
+            class="file-preview"
+            alt="Documento seleccionado"
+          >
+
+          <span class="file-selected-label">
+            Cambiar
+          </span>
+        `;
+
+        preview.dataset.image = reader.result;
+      };
+
+      reader.onerror = () => {
+        mostrarAlerta(
+          "No se pudo leer la fotografía.",
+          "error"
+        );
+
+        event.target.value = "";
+      };
+
+      reader.readAsDataURL(file);
+    }
+
+    /* OBTENER UBICACIÓN GPS */
+
+    function obtenerUbicacion() {
+      if (!utilizarGPS) {
+        mostrarAlerta(
+          "Primero selecciona Sí para utilizar el GPS.",
+          "warning"
+        );
 
         return;
       }
 
-      const reader =
-        new FileReader();
-
-      reader.onload =
-        () => {
-          preview.innerHTML = `
-            <img
-              src="${reader.result}"
-              class="file-preview"
-              alt="Documento seleccionado"
-            >
-
-            <span class="file-selected-label">
-              Cambiar
-            </span>
-          `;
-
-          preview.dataset.image =
-            reader.result;
-        };
-
-      reader.readAsDataURL(
-        file
-      );
-    }
-
-    function obtenerUbicacion() {
       if (!navigator.geolocation) {
         mostrarAlerta(
           "Tu navegador no admite geolocalización.",
@@ -1518,11 +1473,16 @@
         return;
       }
 
+      const btnGps = document.getElementById("btnGps");
+
+      btnGps.disabled = true;
+
       Swal.fire({
         position: "center",
         title: "Buscando ubicación",
-        text: "Mantén el GPS activado.",
+        text: "Mantén el GPS activado y permite el acceso.",
         allowOutsideClick: false,
+        allowEscapeKey: false,
         didOpen: () => {
           Swal.showLoading();
         }
@@ -1531,19 +1491,15 @@
       navigator.geolocation.getCurrentPosition(
         posicion => {
           const latitud =
-            posicion.coords.latitude.toFixed(
-              6
-            );
+            posicion.coords.latitude.toFixed(6);
 
           const longitud =
-            posicion.coords.longitude.toFixed(
-              6
-            );
+            posicion.coords.longitude.toFixed(6);
 
-          document.getElementById(
-            "ubicacion"
-          ).value =
+          document.getElementById("ubicacion").value =
             `${latitud},${longitud}`;
+
+          btnGps.disabled = false;
 
           Swal.fire({
             position: "center",
@@ -1558,34 +1514,24 @@
           let mensaje =
             "No se pudo obtener la ubicación.";
 
-          if (
-            error.code ===
-            error.PERMISSION_DENIED
-          ) {
+          if (error.code === error.PERMISSION_DENIED) {
             mensaje =
               "Debes permitir el acceso a la ubicación.";
           }
 
-          if (
-            error.code ===
-            error.POSITION_UNAVAILABLE
-          ) {
+          if (error.code === error.POSITION_UNAVAILABLE) {
             mensaje =
               "La señal GPS no está disponible.";
           }
 
-          if (
-            error.code ===
-            error.TIMEOUT
-          ) {
+          if (error.code === error.TIMEOUT) {
             mensaje =
               "La ubicación tardó demasiado en responder.";
           }
 
-          mostrarAlerta(
-            mensaje,
-            "error"
-          );
+          btnGps.disabled = false;
+
+          mostrarAlerta(mensaje, "error");
         },
 
         {
@@ -1596,126 +1542,112 @@
       );
     }
 
+    /* GUARDAR CLIENTE */
+
     function guardarCliente() {
-      if (
-        !validarPasoActual()
-      ) {
+      if (!validarPasoActual()) {
         return;
       }
 
       const nombre =
-        document.getElementById(
-          "nombre"
-        ).value.trim();
+        document.getElementById("nombre").value.trim();
 
       const apellido =
-        document.getElementById(
-          "apellido"
-        ).value.trim();
+        document.getElementById("apellido").value.trim();
 
-      const cedula =
-        ingresarCedula
-          ? document.getElementById(
-              "cedula"
-            ).value.trim()
-          : "";
+      const cedula = ingresarCedula
+        ? document.getElementById("cedula").value.trim()
+        : "";
 
       const telefono =
-        document.getElementById(
-          "telefono"
-        ).value.trim();
+        document.getElementById("telefono").value.trim();
 
       const direccion =
-        document.getElementById(
-          "direccion"
-        ).value.trim();
+        document.getElementById("direccion").value.trim();
 
       const negocio =
-        document.getElementById(
-          "negocio"
-        ).value.trim();
+        document.getElementById("negocio").value.trim();
 
       const ruta =
-        document.getElementById(
-          "ruta"
-        ).value.trim();
+        document.getElementById("ruta").value.trim();
 
       const ubicacion =
-        document.getElementById(
-          "ubicacion"
-        ).value.trim();
+        document.getElementById("ubicacion").value.trim();
 
-      if (!ubicacion) {
-        mostrarAlerta(
-          "Introduce o captura la ubicación.",
-          "warning"
-        );
+      let latitud = "";
+      let longitud = "";
 
-        return;
-      }
-
-      if (
-        !/^[-+]?[0-9]*\.?[0-9]+,\s*[-+]?[0-9]*\.?[0-9]+$/.test(
-          ubicacion
-        )
-      ) {
-        mostrarAlerta(
-          "Coordenadas inválidas. Usa latitud,longitud.",
-          "warning"
-        );
-
-        return;
-      }
-
-      if (
-        !/^(809|829|849)\d{7}$/.test(
-          telefono
-        )
-      ) {
-        mostrarAlerta(
-          "Teléfono inválido.",
-          "warning"
-        );
-
-        return;
-      }
-
-      const [
-        latitud,
-        longitud
-      ] =
-        ubicacion
-          .split(",")
-          .map(
-            valor =>
-              valor.trim()
+      // La ubicación solo es obligatoria si GPS está activado.
+      if (utilizarGPS) {
+        if (!ubicacion) {
+          mostrarAlerta(
+            "Introduce o captura la ubicación del cliente.",
+            "warning"
           );
 
+          return;
+        }
+
+        const formatoCoordenadas =
+          /^[-+]?(?:\d+\.?\d*|\.\d+),\s*[-+]?(?:\d+\.?\d*|\.\d+)$/;
+
+        if (!formatoCoordenadas.test(ubicacion)) {
+          mostrarAlerta(
+            "Coordenadas inválidas. Usa latitud,longitud.",
+            "warning"
+          );
+
+          return;
+        }
+
+        [latitud, longitud] = ubicacion
+          .split(",")
+          .map(valor => valor.trim());
+
+        const lat = Number(latitud);
+        const lon = Number(longitud);
+
+        if (
+          !Number.isFinite(lat) ||
+          !Number.isFinite(lon) ||
+          lat < -90 ||
+          lat > 90 ||
+          lon < -180 ||
+          lon > 180
+        ) {
+          mostrarAlerta(
+            "La latitud o longitud está fuera de rango.",
+            "warning"
+          );
+
+          return;
+        }
+      }
+
+      // Leer clientes existentes.
       let clientes = [];
 
       try {
-        const datos =
-          JSON.parse(
-            localStorage.getItem(
-              "clientes"
-            ) || "[]"
-          );
+        const datos = JSON.parse(
+          localStorage.getItem("clientes") || "[]"
+        );
 
-        clientes =
-          Array.isArray(datos)
-            ? datos
-            : [];
+        clientes = Array.isArray(datos) ? datos : [];
+
       } catch (error) {
-        clientes = [];
+        mostrarAlerta(
+          "No se pudieron leer los clientes guardados.",
+          "error"
+        );
+
+        return;
       }
 
+      // Evitar cédulas duplicadas.
       if (
         cedula &&
-        clientes.some(
-          cliente =>
-            String(
-              cliente.cedula || ""
-            ).trim() === cedula
+        clientes.some(cliente =>
+          String(cliente.cedula || "").trim() === cedula
         )
       ) {
         mostrarAlerta(
@@ -1726,38 +1658,53 @@
         return;
       }
 
-      const fotoFrontal =
-        document.getElementById(
-          "previewFrontal"
-        ).dataset.image || "";
+      // Fotografías: solo se guardan si se eligió ingresar cédula.
+      const fotoFrontal = ingresarCedula
+        ? document.getElementById("previewFrontal").dataset.image || ""
+        : "";
 
-      const fotoTrasera =
-        document.getElementById(
-          "previewTrasera"
-        ).dataset.image || "";
+      const fotoTrasera = ingresarCedula
+        ? document.getElementById("previewTrasera").dataset.image || ""
+        : "";
 
-      clientes.push({
+      // Crear registro del cliente.
+      const nuevoCliente = {
         nombre,
         apellido,
         cedula,
-        tieneCedula:
-          ingresarCedula,
+        tieneCedula: ingresarCedula,
         telefono,
         direccion,
         negocio,
         ruta,
+
+        utilizarGPS,
         latitud,
         longitud,
+
         fotoFrontal,
         fotoTrasera,
+
         estado: "visitar",
         historial: []
-      });
+      };
 
-      localStorage.setItem(
-        "clientes",
-        JSON.stringify(clientes)
-      );
+      clientes.push(nuevoCliente);
+
+      try {
+        localStorage.setItem(
+          "clientes",
+          JSON.stringify(clientes)
+        );
+
+      } catch (error) {
+        mostrarAlerta(
+          "No se pudo guardar el cliente. Puede que el almacenamiento esté lleno; intenta usar fotografías más pequeñas.",
+          "error"
+        );
+
+        return;
+      }
 
       Swal.fire({
         position: "center",
@@ -1765,16 +1712,20 @@
         title: "Cliente guardado",
         text: "El cliente fue registrado correctamente.",
         confirmButtonText: "Ver clientes",
-        confirmButtonColor: "#f26a21"
+        confirmButtonColor: "#f26a21",
+        allowOutsideClick: false
       }).then(() => {
-        window.location.href =
-          "Clientes.html";
+        window.location.href = "Clientes.html";
       });
     }
 
+    /* INICIAR FORMULARIO */
+
+    seleccionarCedula(false);
+    seleccionarGPS(false);
     actualizarIndicadores();
+
   </script>
 
 </body>
 </html>
-```
